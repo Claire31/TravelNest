@@ -22,7 +22,8 @@ d = {
     "Property Name": [],
     "Property Type": [],
     "No. of Bedrooms": [],
-    "No. of Bathrooms": []
+    "No. of Bathrooms": [],
+    "List of Amenities": []
     }
 
 
@@ -53,6 +54,16 @@ def scraper(url, d):
         bathrooms, __, __ = str(bathrooms_info).partition(' ')  # partitions string to isolate Number of Bathrooms
         d["No. of Bathrooms"].append(int(bathrooms))  # adds integer No. of Bathrooms to dictionary d
 
+        # Not all amenities are found, I attempted to use chromedriver and then BeutifulSoup to obtain a list
+        # of all the amenities, however was not able to fully implement this.
+        # I thought it better to provide a solution that was fully functional and which contained at least
+        # a snapshot of the property's amenities as below.
+        amenities_info = soup.find(id="amenities").find_all("div", class_="_czm8crp")  # finds amentities info
+        amenities = []  # creates empty list to store amenities
+        for amen in amenities_info:
+            amenities.append(str(amen.text))  # adds each amenity (as string) to the list
+        d["List of Amenities"].append(str(amenities).strip("[]"))  # adds string of Amenities to dictionary d
+        
         return d
 
     else:
