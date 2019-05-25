@@ -60,8 +60,8 @@ def scraper(url, d):
         # a snapshot of the property's amenities as below.
         amenities_info = soup.find(id="amenities").find_all("div", class_="_czm8crp")  # finds amentities info
         amenities = []  # creates empty list to store amenities
-        for amen in amenities_info:
-            amenities.append(str(amen.text))  # adds each amenity (as string) to the list
+        for i in range(0,4):
+            amenities.append(str(amenities_info[i].text))  # adds each amenity (as string) to the list
         d["List of Amenities"].append(str(amenities).strip("[]"))  # adds string of Amenities to dictionary d
         
         return d
